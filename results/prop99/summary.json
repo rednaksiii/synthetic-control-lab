@@ -1,0 +1,396 @@
+{
+  "name": "prop99",
+  "title": "California Proposition 99 (1988 tobacco tax): replication of Abadie, Diamond & Hainmueller (2010)",
+  "status": "replication",
+  "run_at": "2026-10-12T08:43:38-04:00",
+  "lock": {
+    "state": "replication",
+    "label": "REPLICATION (published specification)",
+    "sha256": "0d811c705402812e5eaf28997bae172aa4c1f4a67c9644eb2246ea939a718f29"
+  },
+  "design": {
+    "dataset": "prop99",
+    "treated": "California",
+    "first_treated_period": 1989,
+    "window": [
+      1970,
+      2000
+    ],
+    "outcome": "cigsale",
+    "outcome_label": "Per-capita cigarette sales (packs)",
+    "transform": "none",
+    "outcome_column": "cigsale",
+    "v_method": "nested",
+    "policy_note": "Proposition 99 passed in November 1988 and raised the cigarette excise tax by 25 cents per pack from January 1989.",
+    "n_donors": 38,
+    "donors": [
+      "Alabama",
+      "Arkansas",
+      "Colorado",
+      "Connecticut",
+      "Delaware",
+      "Georgia",
+      "Idaho",
+      "Illinois",
+      "Indiana",
+      "Iowa",
+      "Kansas",
+      "Kentucky",
+      "Louisiana",
+      "Maine",
+      "Minnesota",
+      "Mississippi",
+      "Missouri",
+      "Montana",
+      "Nebraska",
+      "Nevada",
+      "New Hampshire",
+      "New Mexico",
+      "North Carolina",
+      "North Dakota",
+      "Ohio",
+      "Oklahoma",
+      "Pennsylvania",
+      "Rhode Island",
+      "South Carolina",
+      "South Dakota",
+      "Tennessee",
+      "Texas",
+      "Utah",
+      "Vermont",
+      "Virginia",
+      "West Virginia",
+      "Wisconsin",
+      "Wyoming"
+    ],
+    "excluded": {},
+    "predictors": [
+      "lnincome (1980-1988)",
+      "age15to24 (1980-1988)",
+      "retprice (1980-1988)",
+      "beer (1984-1988)",
+      "cigsale (1988)",
+      "cigsale (1980)",
+      "cigsale (1975)"
+    ]
+  },
+  "fit": {
+    "treated": "California",
+    "outcome": "cigsale",
+    "treatment_time": 1989,
+    "n_donors": 38,
+    "pre_rmspe": 1.7540421706020783,
+    "post_rmspe": 19.92543564851801,
+    "rmspe_ratio": 11.359724402565856,
+    "pre_mape_pct": 1.043511588293678,
+    "mean_post_gap": -18.981600319977012,
+    "last_gap": -25.732569449528874,
+    "weights": {
+      "Utah": 0.33507112605632533,
+      "Nevada": 0.23560816459601058,
+      "Montana": 0.20189106669582232,
+      "Colorado": 0.1595260361325937,
+      "Connecticut": 0.06790360651924814
+    },
+    "v": {
+      "lnincome (1980-1988)": 7.566385408057886e-10,
+      "age15to24 (1980-1988)": 0.1351217367789208,
+      "retprice (1980-1988)": 0.04831682528134246,
+      "beer (1984-1988)": 5.6295850306755796e-08,
+      "cigsale (1988)": 8.519941136525946e-08,
+      "cigsale (1980)": 5.7395703591034855e-12,
+      "cigsale (1975)": 0.8165612956820969
+    },
+    "loss_v": 3.076663936250454,
+    "notes": []
+  },
+  "placebo_in_space": {
+    "n_units": 39,
+    "treated_ratio_rank": 1,
+    "p_value_ratio": 0.02564102564102564,
+    "p_value_mean_gap": 0.10256410256410256,
+    "min_attainable_p": 0.02564102564102564,
+    "filtered": {
+      "20.0": {
+        "n_units": 33,
+        "p_value_ratio": 0.030303030303030304,
+        "p_value_mean_gap": 0.06060606060606061
+      },
+      "5.0": {
+        "n_units": 27,
+        "p_value_ratio": 0.037037037037037035,
+        "p_value_mean_gap": 0.07407407407407407
+      },
+      "2.0": {
+        "n_units": 17,
+        "p_value_ratio": 0.058823529411764705,
+        "p_value_mean_gap": 0.058823529411764705
+      }
+    }
+  },
+  "placebo_in_time": [
+    {
+      "fake_time": 1980,
+      "pre_rmspe": 2.089794258070915,
+      "placebo_post_rmspe": 9.664312478032397,
+      "rmspe_ratio": 4.624528199705892,
+      "mean_placebo_gap": -9.520625014118723,
+      "weights": {
+        "Colorado": 0.4511977203919928,
+        "Connecticut": 0.3097835773028354,
+        "Illinois": 0.21905903217066125,
+        "Utah": 0.019959670134510523
+      },
+      "dropped_predictors": [
+        "beer (1984-1988)",
+        "cigsale (1975)"
+      ]
+    }
+  ],
+  "leave_one_out": {
+    "n_refits": 5,
+    "base_mean_post_gap": -18.981600319977012,
+    "min_mean_post_gap": -20.660629671336782,
+    "max_mean_post_gap": -17.52076130292794,
+    "sign_flips": 0,
+    "most_influential": "Nevada"
+  },
+  "sdid": {
+    "sdid": {
+      "estimate": -15.603829219678788,
+      "se": 9.370998862818103,
+      "ci_low": -33.970986990802274,
+      "ci_high": 2.7633285514446957
+    },
+    "sc": {
+      "estimate": -19.61966472651731,
+      "se": 10.615548876983503,
+      "ci_low": -40.426140525404975,
+      "ci_high": 1.1868110723703538
+    },
+    "did": {
+      "estimate": -27.349111265004623,
+      "se": 17.286799725041973,
+      "ci_low": -61.23123872608689,
+      "ci_high": 6.5330161960776465
+    },
+    "sdid_top_unit_weights": {
+      "Nevada": 0.12448925740337342,
+      "New Hampshire": 0.10504755638423434,
+      "Connecticut": 0.0782873025430979,
+      "Delaware": 0.07036814245166308,
+      "Colorado": 0.05751277806268396,
+      "Illinois": 0.0533878155556741,
+      "Nebraska": 0.047853200898569294,
+      "Montana": 0.04513521959393466
+    }
+  },
+  "decision": {
+    "verdict": "FRAGILE: a meaningful reduction (-19) that fails robustness check(s): Placebo in time (1980) |mean gap|.",
+    "checks": [
+      {
+        "check": "Pre-period fit (RMSPE)",
+        "passed": true,
+        "value": 1.7540421706020783,
+        "threshold": "<= 3.0",
+        "role": "fit"
+      },
+      {
+        "check": "Effect size |mean post gap|",
+        "passed": true,
+        "value": -18.981600319977012,
+        "threshold": ">= 10.0 in absolute value",
+        "role": "size"
+      },
+      {
+        "check": "Placebo-in-space p-value (post/pre RMSPE ratio)",
+        "passed": true,
+        "value": 0.02564102564102564,
+        "threshold": "<= 0.1 (minimum attainable 0.026)",
+        "role": "significance"
+      },
+      {
+        "check": "Placebo in time (1980) |mean gap|",
+        "passed": false,
+        "value": -9.520625014118723,
+        "threshold": "<= 5.0",
+        "role": "robustness"
+      },
+      {
+        "check": "Leave-one-out: no sign flips",
+        "passed": true,
+        "value": "range -20.7 to -17.5",
+        "threshold": "same sign as main estimate",
+        "role": "robustness"
+      },
+      {
+        "check": "Synthetic DiD agrees in sign",
+        "passed": true,
+        "value": -15.603829219678788,
+        "threshold": "same sign as main estimate",
+        "role": "robustness"
+      }
+    ],
+    "alpha": 0.1,
+    "mspe_filter": null
+  },
+  "published": [
+    {
+      "item": "weight: Colorado",
+      "published": 0.164,
+      "ours": 0.1595260361325937,
+      "tolerance": 0.02,
+      "match": true
+    },
+    {
+      "item": "weight: Connecticut",
+      "published": 0.069,
+      "ours": 0.06790360651924814,
+      "tolerance": 0.02,
+      "match": true
+    },
+    {
+      "item": "weight: Montana",
+      "published": 0.199,
+      "ours": 0.20189106669582232,
+      "tolerance": 0.02,
+      "match": true
+    },
+    {
+      "item": "weight: Nevada",
+      "published": 0.234,
+      "ours": 0.23560816459601058,
+      "tolerance": 0.02,
+      "match": true
+    },
+    {
+      "item": "weight: Utah",
+      "published": 0.334,
+      "ours": 0.33507112605632533,
+      "tolerance": 0.02,
+      "match": true
+    },
+    {
+      "item": "synthetic lnincome (1980-1988)",
+      "published": 9.86,
+      "ours": 9.858470853365288,
+      "tolerance": "1.0%",
+      "match": true
+    },
+    {
+      "item": "synthetic age15to24 (1980-1988)",
+      "published": 17.4,
+      "ours": 17.35323822282562,
+      "tolerance": "1.0%",
+      "match": true
+    },
+    {
+      "item": "synthetic retprice (1980-1988)",
+      "published": 89.41,
+      "ours": 89.42222210967475,
+      "tolerance": "1.0%",
+      "match": true
+    },
+    {
+      "item": "synthetic beer (1984-1988)",
+      "published": 24.2,
+      "ours": 24.222591492277186,
+      "tolerance": "1.0%",
+      "match": true
+    },
+    {
+      "item": "synthetic cigsale (1988)",
+      "published": 91.62,
+      "ours": 91.65388337983848,
+      "tolerance": "1.0%",
+      "match": true
+    },
+    {
+      "item": "synthetic cigsale (1980)",
+      "published": 120.43,
+      "ours": 120.47213751725559,
+      "tolerance": "1.0%",
+      "match": true
+    },
+    {
+      "item": "synthetic cigsale (1975)",
+      "published": 126.99,
+      "ours": 127.09999985223497,
+      "tolerance": "1.0%",
+      "match": true
+    },
+    {
+      "item": "Gap in 2000 (packs)",
+      "published": -26.0,
+      "ours": -25.732569449528874,
+      "tolerance": 2.0,
+      "match": true,
+      "note": "'about 26 packs lower' by 2000"
+    },
+    {
+      "item": "Mean gap 1989-2000 (packs)",
+      "published": -20.0,
+      "ours": -18.981600319977012,
+      "tolerance": 1.5,
+      "match": true,
+      "note": "'an average of almost 20 packs'"
+    },
+    {
+      "item": "Rank of California's post/pre RMSPE ratio among 39 states",
+      "published": 1,
+      "ours": 1.0,
+      "tolerance": 0.0,
+      "match": true,
+      "note": "highest ratio of all 39 states, p = 1/39"
+    },
+    {
+      "item": "Synthetic DiD estimate",
+      "published": -15.6,
+      "ours": -15.603829219678788,
+      "tolerance": 0.1,
+      "match": true,
+      "note": ""
+    },
+    {
+      "item": "SC estimate (synthdid definition)",
+      "published": -19.6,
+      "ours": -19.61966472651731,
+      "tolerance": 0.1,
+      "match": true,
+      "note": ""
+    },
+    {
+      "item": "DiD estimate",
+      "published": -27.3,
+      "ours": -27.349111265004623,
+      "tolerance": 0.1,
+      "match": true,
+      "note": ""
+    },
+    {
+      "item": "SDID placebo SE",
+      "published": 8.4,
+      "ours": 9.370998862818103,
+      "tolerance": 1.5,
+      "match": true,
+      "note": "published SE is one random draw of 200 placebo permutations; ours uses each of the 38 controls once"
+    },
+    {
+      "item": "SC placebo SE",
+      "published": 9.9,
+      "ours": 10.615548876983503,
+      "tolerance": 1.5,
+      "match": true,
+      "note": "as above"
+    },
+    {
+      "item": "DiD placebo SE",
+      "published": 17.7,
+      "ours": 17.286799725041973,
+      "tolerance": 1.5,
+      "match": true,
+      "note": "as above"
+    }
+  ],
+  "published_source": "ADH (2010) Tables 1-2 and text; Arkhangelsky, Athey, Hirshberg, Imbens & Wager (2021), AER 111(12), Table 1"
+}

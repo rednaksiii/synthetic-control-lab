@@ -1,0 +1,157 @@
+# Replication of Abadie, Diamond & Hainmueller (2010), "Synthetic Control Methods for
+# Comparative Case Studies: Estimating the Effect of California's Tobacco Control Program",
+# JASA 105(490). Every design choice below is taken from the paper, not chosen by us; see
+# PREREGISTRATION.md, Part A.
+
+[study]
+name = "prop99"
+title = "California Proposition 99 (1988 tobacco tax): replication of Abadie, Diamond & Hainmueller (2010)"
+status = "replication"
+
+[data]
+source = "prop99"
+unit = "state"
+time = "year"
+start = 1970
+end = 2000
+
+[treatment]
+unit = "California"
+first_treated_period = 1989
+note = "Proposition 99 passed in November 1988 and raised the cigarette excise tax by 25 cents per pack from January 1989."
+
+[outcome]
+variable = "cigsale"
+label = "Per-capita cigarette sales (packs)"
+transform = "none"
+
+[donors]
+# The dataset already contains only the paper's 38-state donor pool: states with large tobacco
+# control programmes or tax increases of 50 cents or more during 1989-2000 (AK, AZ, FL, HI, MA,
+# MD, MI, NJ, NY, OR, WA) and DC are absent.
+pool = "all"
+exclude_neighbors = false
+
+[[predictors]]
+variable = "lnincome"
+start = 1980
+end = 1988
+
+[[predictors]]
+variable = "age15to24"
+start = 1980
+end = 1988
+
+[[predictors]]
+variable = "retprice"
+start = 1980
+end = 1988
+
+[[predictors]]
+variable = "beer"
+start = 1984
+end = 1988
+
+[[predictors]]
+variable = "@outcome"
+start = 1988
+
+[[predictors]]
+variable = "@outcome"
+start = 1980
+
+[[predictors]]
+variable = "@outcome"
+start = 1975
+
+[model]
+v_method = "nested"
+optimize_start = 1970
+optimize_end = 1988
+
+[inference]
+placebo_in_space = true
+mspe_filters = [20, 5, 2]
+placebo_in_time = [1980]
+leave_one_out = true
+
+[robustness]
+sdid = true
+
+[decision]
+alpha = 0.10
+max_pre_rmspe = 3.0          # packs per capita
+min_effect = 10.0            # packs per capita, averaged over 1989-2000
+max_placebo_time_gap = 5.0   # packs per capita, averaged over the fake post-period 1980-1988
+
+# ---------------------------------------------------------------------------------- targets
+[published]
+source = "ADH (2010) Tables 1-2 and text; Arkhangelsky, Athey, Hirshberg, Imbens & Wager (2021), AER 111(12), Table 1"
+
+[published.weights]
+tolerance = 0.02
+values = { Colorado = 0.164, Connecticut = 0.069, Montana = 0.199, Nevada = 0.234, Utah = 0.334 }
+
+[published.balance]
+tolerance_pct = 1.0
+values = { "lnincome (1980-1988)" = 9.86, "age15to24 (1980-1988)" = 17.40, "retprice (1980-1988)" = 89.41, "beer (1984-1988)" = 24.20, "cigsale (1988)" = 91.62, "cigsale (1980)" = 120.43, "cigsale (1975)" = 126.99 }
+
+[[published.metrics]]
+name = "gap_2000"
+label = "Gap in 2000 (packs)"
+value = -26.0
+tolerance = 2.0
+note = "'about 26 packs lower' by 2000"
+
+[[published.metrics]]
+name = "mean_post_gap"
+label = "Mean gap 1989-2000 (packs)"
+value = -20.0
+tolerance = 1.5
+note = "'an average of almost 20 packs'"
+
+[[published.metrics]]
+name = "ratio_rank"
+label = "Rank of California's post/pre RMSPE ratio among 39 states"
+value = 1
+tolerance = 0
+note = "highest ratio of all 39 states, p = 1/39"
+
+[[published.metrics]]
+name = "sdid_estimate"
+label = "Synthetic DiD estimate"
+value = -15.6
+tolerance = 0.1
+
+[[published.metrics]]
+name = "sc_estimate"
+label = "SC estimate (synthdid definition)"
+value = -19.6
+tolerance = 0.1
+
+[[published.metrics]]
+name = "did_estimate"
+label = "DiD estimate"
+value = -27.3
+tolerance = 0.1
+
+[[published.metrics]]
+name = "sdid_se"
+label = "SDID placebo SE"
+value = 8.4
+tolerance = 1.5
+note = "published SE is one random draw of 200 placebo permutations; ours uses each of the 38 controls once"
+
+[[published.metrics]]
+name = "sc_se"
+label = "SC placebo SE"
+value = 9.9
+tolerance = 1.5
+note = "as above"
+
+[[published.metrics]]
+name = "did_se"
+label = "DiD placebo SE"
+value = 17.7
+tolerance = 1.5
+note = "as above"

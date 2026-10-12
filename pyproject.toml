@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "synthpolicy"
+version = "0.1.0"
+description = "Synthetic control policy analysis with placebo inference, synthetic DiD, and pre-registration"
+readme = "README.md"
+license = "MIT"
+authors = [{ name = "Iskandar Kholmatov" }]
+requires-python = ">=3.11"
+dependencies = [
+    "numpy>=1.26",
+    "pandas>=2.1",
+    "scipy>=1.11",
+    "pyarrow>=14",
+    "requests>=2.31",
+]
+
+[project.optional-dependencies]
+dashboard = ["streamlit>=1.46", "plotly>=5.19"]
+dev = ["pytest>=8"]
+screenshots = ["playwright>=1.40", "kaleido>=1.0"]
+
+[project.urls]
+Repository = "https://github.com/rednaksiii/synthetic-control-lab"
+
+[project.scripts]
+synthpolicy = "synthpolicy.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["synthpolicy*"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+addopts = "--basetemp=.pytest_tmp -p no:cacheprovider"

@@ -1,0 +1,105 @@
+# Pre-registration: Kansas 2012 income tax cuts, PRIMARY outcome.
+# Lock BEFORE running (see PREREGISTRATION.md Part B):
+#     python -m synthpolicy lock specs/kansas_2012.toml --note "..."
+#     python -m synthpolicy run specs/kansas_2012.toml
+
+[study]
+name = "kansas_2012"
+title = "Kansas 2012 income tax cuts: private-sector employment"
+status = "confirmatory"
+
+[data]
+source = "state_panel"
+unit = "state"
+time = "year"
+start = 1990
+end = 2016          # the cuts were largely repealed in June 2017, retroactive to tax year 2017
+
+[treatment]
+unit = "KS"
+first_treated_period = 2012
+note = "Senate Substitute for H.B. 2117 signed 22 May 2012, effective tax year 2013: top rate 6.45% -> 4.9%, pass-through business income exempted. Proposed in the January 2012 State of the State address, so 2012 is treated as the first exposed year (anticipation)."
+
+[outcome]
+variable = "qcew_private_10_emp"
+label = "Private-sector employment, log points relative to the state's 1990-2011 mean (x100)"
+transform = "log_demeaned"
+base_start = 1990
+base_end = 2011
+
+[donors]
+pool = "all"
+exclude_neighbors = true      # MO, NE, OK, CO: spillover risk (e.g. the Kansas City metro straddles KS-MO)
+
+[donors.exclude]
+DC = "city, not comparable to a state economy"
+HI = "non-contiguous island economy (tourism, military); also top rate 11% -> 8.25% in 2016"
+# Rule 4 (verified 2026-10-12): exclude a state if the top marginal rate on wage/business income
+# faced by a high earner (including temporary surcharges and optional flat-tax alternatives)
+# varied by >= 0.5 pp across tax years 2010-2016, or if it enacted a pass-through business income
+# exemption or deduction effective 2011-2016. Sources: PREREGISTRATION.md Part B.
+CA = "concurrent tax change: Proposition 30 raised the top rate 10.3% -> 13.3% from 2012"
+IL = "concurrent tax change: flat rate 3% -> 5% in 2011, cut to 3.75% in 2015"
+MD = "concurrent tax change: 6.25% millionaire bracket expired after 2010 (5.5% in 2011, 5.75% from 2012)"
+ME = "concurrent tax change: top rate 8.5% -> 7.95% (2013) -> 7.15% (2016)"
+MN = "concurrent tax change: new 9.85% top bracket from 2013 (was 7.85%)"
+NC = "concurrent tax change: graduated tax (top 7.75%) replaced by flat 5.8% in 2014, 5.75% in 2015"
+OH = "concurrent tax change: top rate 5.925% -> 4.997% (2013-2016) and small-business income deduction from 2013"
+OR = "concurrent tax change: temporary 11% top rate (2009-2011) replaced by 9.9% from 2012"
+
+[[donors.rules]]
+variable = "bea_mining_share"
+year = 2011
+max = 0.08
+reason = "energy-dependent economy; the 2014-16 oil price collapse would contaminate the counterfactual"
+
+[[predictors]]
+variable = "@outcome"
+start = 1990
+end = 1995
+
+[[predictors]]
+variable = "@outcome"
+start = 1996
+end = 2001
+
+[[predictors]]
+variable = "@outcome"
+start = 2002
+end = 2007
+
+[[predictors]]
+variable = "@outcome"
+start = 2008
+end = 2011
+
+[[predictors]]
+variable = "ln_bea_real_gdp_pc"
+start = 1997
+end = 2011
+
+[[predictors]]
+variable = "laus_unemployment_rate"
+start = 1990
+end = 2011
+
+[model]
+v_method = "nested"
+# Kansas is likely inside the donors' convex hull on these predictors, which makes classic ADH
+# weights non-unique. Break ties by pre-period outcome fit (decide before running; see PREREGISTRATION.md).
+tie_break = 1e-4
+
+[inference]
+placebo_in_space = true
+mspe_filters = [20, 5, 2]
+placebo_in_time = [2005]
+leave_one_out = true
+
+[robustness]
+sdid = true
+
+[decision]
+alpha = 0.10                  # primary: unfiltered post/pre RMSPE ratio test
+max_pre_rmspe = 1.0           # log points (~1%)
+min_effect = 2.0              # log points (~2% of private employment, ~21,000 jobs), mean 2012-2016
+max_placebo_time_gap = 1.0    # log points, mean over the fake post-period 2005-2011

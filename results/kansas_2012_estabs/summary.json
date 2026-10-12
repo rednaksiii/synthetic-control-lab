@@ -1,0 +1,254 @@
+{
+  "name": "kansas_2012_estabs",
+  "title": "Kansas 2012 income tax cuts: private-sector establishments (secondary)",
+  "status": "confirmatory",
+  "run_at": "2026-10-12T10:31:29-04:00",
+  "lock": {
+    "state": "locked",
+    "sha256": "a37fb7ac47362b9dc1cdf5a2323845daa6af72dd7dcc60755b222e1a8c9eb0e7",
+    "locked_at": "2026-10-12T10:29:27-04:00",
+    "label": "CONFIRMATORY (matches locked spec)"
+  },
+  "design": {
+    "dataset": "state_panel",
+    "treated": "KS",
+    "first_treated_period": 2012,
+    "window": [
+      1990,
+      2016
+    ],
+    "outcome": "qcew_private_10_estabs",
+    "outcome_label": "Private-sector establishments (UI-covered employers), log points relative to the state's 1990-2011 mean (x100)",
+    "transform": "log_demeaned",
+    "outcome_column": "qcew_private_10_estabs__log_demeaned",
+    "v_method": "nested",
+    "policy_note": "Senate Substitute for H.B. 2117 signed 22 May 2012, effective tax year 2013: top rate 6.45% -> 4.9%, pass-through business income exempted. Proposed in the January 2012 State of the State address, so 2012 is treated as the first exposed year (anticipation).",
+    "n_donors": 29,
+    "donors": [
+      "AL",
+      "AR",
+      "AZ",
+      "CT",
+      "DE",
+      "FL",
+      "GA",
+      "IA",
+      "ID",
+      "IN",
+      "KY",
+      "MA",
+      "MI",
+      "MS",
+      "MT",
+      "NH",
+      "NJ",
+      "NV",
+      "NY",
+      "PA",
+      "RI",
+      "SC",
+      "SD",
+      "TN",
+      "UT",
+      "VA",
+      "VT",
+      "WA",
+      "WI"
+    ],
+    "excluded": {
+      "AK": "rule: bea_mining_share = 0.3217 in 2011 (> 0.08) - energy-dependent economy; the 2014-16 oil price collapse would contaminate the counterfactual",
+      "CA": "excluded: concurrent tax change: Proposition 30 raised the top rate 10.3% -> 13.3% from 2012",
+      "CO": "borders KS (spillover risk)",
+      "DC": "excluded: city, not comparable to a state economy",
+      "HI": "excluded: non-contiguous island economy (tourism, military); also top rate 11% -> 8.25% in 2016",
+      "IL": "excluded: concurrent tax change: flat rate 3% -> 5% in 2011, cut to 3.75% in 2015",
+      "LA": "rule: bea_mining_share = 0.08733 in 2011 (> 0.08) - energy-dependent economy; the 2014-16 oil price collapse would contaminate the counterfactual",
+      "MD": "excluded: concurrent tax change: 6.25% millionaire bracket expired after 2010 (5.5% in 2011, 5.75% from 2012)",
+      "ME": "excluded: concurrent tax change: top rate 8.5% -> 7.95% (2013) -> 7.15% (2016)",
+      "MN": "excluded: concurrent tax change: new 9.85% top bracket from 2013 (was 7.85%)",
+      "MO": "borders KS (spillover risk)",
+      "NC": "excluded: concurrent tax change: graduated tax (top 7.75%) replaced by flat 5.8% in 2014, 5.75% in 2015",
+      "ND": "rule: bea_mining_share = 0.1218 in 2011 (> 0.08) - energy-dependent economy; the 2014-16 oil price collapse would contaminate the counterfactual",
+      "NE": "borders KS (spillover risk)",
+      "NM": "rule: bea_mining_share = 0.1091 in 2011 (> 0.08) - energy-dependent economy; the 2014-16 oil price collapse would contaminate the counterfactual",
+      "OH": "excluded: concurrent tax change: top rate 5.925% -> 4.997% (2013-2016) and small-business income deduction from 2013",
+      "OK": "borders KS (spillover risk)",
+      "OR": "excluded: concurrent tax change: temporary 11% top rate (2009-2011) replaced by 9.9% from 2012",
+      "TX": "rule: bea_mining_share = 0.1084 in 2011 (> 0.08) - energy-dependent economy; the 2014-16 oil price collapse would contaminate the counterfactual",
+      "WV": "rule: bea_mining_share = 0.1341 in 2011 (> 0.08) - energy-dependent economy; the 2014-16 oil price collapse would contaminate the counterfactual",
+      "WY": "rule: bea_mining_share = 0.3281 in 2011 (> 0.08) - energy-dependent economy; the 2014-16 oil price collapse would contaminate the counterfactual"
+    },
+    "predictors": [
+      "qcew_private_10_estabs__log_demeaned (1990-1995)",
+      "qcew_private_10_estabs__log_demeaned (1996-2001)",
+      "qcew_private_10_estabs__log_demeaned (2002-2007)",
+      "qcew_private_10_estabs__log_demeaned (2008-2011)",
+      "ln_bea_real_gdp_pc (1997-2011)",
+      "laus_unemployment_rate (1990-2011)"
+    ]
+  },
+  "fit": {
+    "treated": "KS",
+    "outcome": "qcew_private_10_estabs__log_demeaned",
+    "treatment_time": 2012,
+    "n_donors": 29,
+    "pre_rmspe": 1.1300288562335035,
+    "post_rmspe": 3.6336629181296853,
+    "rmspe_ratio": 3.2155487871708326,
+    "pre_mape_pct": 43.12488876891364,
+    "mean_post_gap": -3.3606609088337316,
+    "last_gap": -0.7270927513290566,
+    "weights": {
+      "CT": 0.25625093267944793,
+      "IN": 0.23474758781556887,
+      "SD": 0.2138435870244315,
+      "IA": 0.17471145793610166,
+      "NY": 0.057186798835932674,
+      "AR": 0.05064974529364119,
+      "WA": 0.012609890414876208
+    },
+    "v": {
+      "qcew_private_10_estabs__log_demeaned (1990-1995)": 0.6987232648191817,
+      "qcew_private_10_estabs__log_demeaned (1996-2001)": 3.670422783055283e-06,
+      "qcew_private_10_estabs__log_demeaned (2002-2007)": 1.0727260819582559e-13,
+      "qcew_private_10_estabs__log_demeaned (2008-2011)": 1.7712922032978668e-06,
+      "ln_bea_real_gdp_pc (1997-2011)": 5.544602055092749e-12,
+      "laus_unemployment_rate (1990-2011)": 0.30127129346018017
+    },
+    "loss_v": 1.2769652159204,
+    "notes": []
+  },
+  "placebo_in_space": {
+    "n_units": 30,
+    "treated_ratio_rank": 10,
+    "p_value_ratio": 0.3333333333333333,
+    "p_value_mean_gap": 0.4666666666666667,
+    "min_attainable_p": 0.03333333333333333,
+    "filtered": {
+      "20.0": {
+        "n_units": 29,
+        "p_value_ratio": 0.3448275862068966,
+        "p_value_mean_gap": 0.4482758620689655
+      },
+      "5.0": {
+        "n_units": 25,
+        "p_value_ratio": 0.4,
+        "p_value_mean_gap": 0.4
+      },
+      "2.0": {
+        "n_units": 17,
+        "p_value_ratio": 0.47058823529411764,
+        "p_value_mean_gap": 0.35294117647058826
+      }
+    }
+  },
+  "placebo_in_time": [
+    {
+      "fake_time": 2005,
+      "pre_rmspe": 1.0914464062219331,
+      "placebo_post_rmspe": 1.5237042678187616,
+      "rmspe_ratio": 1.3960413073263935,
+      "mean_placebo_gap": 0.3593008888245863,
+      "weights": {
+        "CT": 0.33134986897435487,
+        "IN": 0.20186263678772945,
+        "SD": 0.2001073966408047,
+        "AL": 0.154984996760903,
+        "IA": 0.10708887649110191,
+        "NJ": 0.0046062243451061215
+      },
+      "dropped_predictors": [
+        "qcew_private_10_estabs__log_demeaned (1990-1995)"
+      ]
+    }
+  ],
+  "leave_one_out": {
+    "n_refits": 7,
+    "base_mean_post_gap": -3.3606609088337316,
+    "min_mean_post_gap": -4.217798548248869,
+    "max_mean_post_gap": -2.675850328452406,
+    "sign_flips": 0,
+    "most_influential": "CT"
+  },
+  "sdid": {
+    "sdid": {
+      "estimate": -4.104164844219322,
+      "se": 3.1584024542494857,
+      "ci_low": -10.294633654548313,
+      "ci_high": 2.0863039661096696
+    },
+    "sc": {
+      "estimate": -3.3432721984013076,
+      "se": 4.021275197917282,
+      "ci_low": -11.22497158631918,
+      "ci_high": 4.538427189516565
+    },
+    "did": {
+      "estimate": -9.293483032641928,
+      "se": 9.408868270386444,
+      "ci_low": -27.734864842599357,
+      "ci_high": 9.147898777315502
+    },
+    "sdid_top_unit_weights": {
+      "CT": 0.16223749425924466,
+      "IA": 0.1464445495444154,
+      "IN": 0.11864053387683375,
+      "NY": 0.10260269924017595,
+      "VT": 0.09366338893506036,
+      "SD": 0.09170572625611234,
+      "MS": 0.09048293604235616,
+      "TN": 0.04559038987565626
+    }
+  },
+  "decision": {
+    "verdict": "INCONCLUSIVE: the pre-period fit fails the decision-rule threshold, so the synthetic unit is not a credible counterfactual.",
+    "checks": [
+      {
+        "check": "Pre-period fit (RMSPE)",
+        "passed": false,
+        "value": 1.1300288562335035,
+        "threshold": "<= 1.0",
+        "role": "fit"
+      },
+      {
+        "check": "Effect size |mean post gap|",
+        "passed": true,
+        "value": -3.3606609088337316,
+        "threshold": ">= 2.0 in absolute value",
+        "role": "size"
+      },
+      {
+        "check": "Placebo-in-space p-value (post/pre RMSPE ratio)",
+        "passed": false,
+        "value": 0.3333333333333333,
+        "threshold": "<= 0.1 (minimum attainable 0.033)",
+        "role": "significance"
+      },
+      {
+        "check": "Placebo in time (2005) |mean gap|",
+        "passed": true,
+        "value": 0.3593008888245863,
+        "threshold": "<= 1.0",
+        "role": "robustness"
+      },
+      {
+        "check": "Leave-one-out: no sign flips",
+        "passed": true,
+        "value": "range -4.22 to -2.68",
+        "threshold": "same sign as main estimate",
+        "role": "robustness"
+      },
+      {
+        "check": "Synthetic DiD agrees in sign",
+        "passed": true,
+        "value": -4.104164844219322,
+        "threshold": "same sign as main estimate",
+        "role": "robustness"
+      }
+    ],
+    "alpha": 0.1,
+    "mspe_filter": null
+  },
+  "published": [],
+  "published_source": ""
+}
